@@ -1,0 +1,116 @@
+diff -urN --no-dereference orig/rules/base.lst new/rules/base.lst
+--- orig/rules/base.lst	2017-05-26 16:08:53.788103589 +0200
++++ new/rules/base.lst	2017-05-26 16:09:08.668305952 +0200
+@@ -614,6 +614,7 @@
+   legacy          ch: German (Switzerland, legacy)
+   de_nodeadkeys   ch: German (Switzerland, eliminate dead keys)
+   de_sundeadkeys  ch: German (Switzerland, Sun dead keys)
++  dvorak          ch: German (Switzerland, Dvorak)
+   fr              ch: French (Switzerland)
+   fr_nodeadkeys   ch: French (Switzerland, eliminate dead keys)
+   fr_sundeadkeys  ch: French (Switzerland, Sun dead keys)
+diff -urN --no-dereference orig/rules/base.xml new/rules/base.xml
+--- orig/rules/base.xml	2017-05-26 16:08:53.800103753 +0200
++++ new/rules/base.xml	2017-05-26 16:09:08.680306115 +0200
+@@ -4555,6 +4555,14 @@
+         </variant>
+         <variant>
+           <configItem>
++            <name>dvorak</name>
++            
++            <shortDescription>de</shortDescription>
++            <description>German (Switzerland, Dvorak)</description>
++          </configItem>
++        </variant>
++        <variant>
++          <configItem>
+             <name>fr</name>
+             
+             <shortDescription>fr</shortDescription>
+diff -urN --no-dereference orig/rules/evdev.lst new/rules/evdev.lst
+--- orig/rules/evdev.lst	2017-05-26 16:08:53.816103971 +0200
++++ new/rules/evdev.lst	2017-05-26 16:09:08.680306115 +0200
+@@ -614,6 +614,7 @@
+   legacy          ch: German (Switzerland, legacy)
+   de_nodeadkeys   ch: German (Switzerland, eliminate dead keys)
+   de_sundeadkeys  ch: German (Switzerland, Sun dead keys)
++  dvorak          ch: German (Switzerland, Dvorak)
+   fr              ch: French (Switzerland)
+   fr_nodeadkeys   ch: French (Switzerland, eliminate dead keys)
+   fr_sundeadkeys  ch: French (Switzerland, Sun dead keys)
+diff -urN --no-dereference orig/rules/evdev.xml new/rules/evdev.xml
+--- orig/rules/evdev.xml	2017-05-26 16:08:53.820104025 +0200
++++ new/rules/evdev.xml	2017-05-26 16:09:08.684306169 +0200
+@@ -4555,6 +4555,14 @@
+         </variant>
+         <variant>
+           <configItem>
++            <name>dvorak</name>
++            
++            <shortDescription>de</shortDescription>
++            <description>German (Switzerland, Dvorak)</description>
++          </configItem>
++        </variant>
++        <variant>
++          <configItem>
+             <name>fr</name>
+             
+             <shortDescription>fr</shortDescription>
+diff -urN --no-dereference orig/symbols/ch new/symbols/ch
+--- orig/symbols/ch	2017-05-26 16:08:53.956105881 +0200
++++ new/symbols/ch	2017-05-26 16:09:08.684306169 +0200
+@@ -76,6 +76,54 @@
+ };
+ 
+ partial alphanumeric_keys
++xkb_symbols "dvorak" {
++    // modify the basic Swiss German layout not to have any dead keys
++    include "ch(de_sundeadkeys)"
++    name[Group1]= "German (Switzerland, dvorak)";
++
++    key <TLDE> { [    section,     degree                             ] };
++    key <AD01>	{ [udiaeresis,     egrave,           at,  Greek_OMEGA ] };
++    key <AD02>	{ [     comma,  semicolon                             ] };
++    key <AD03>	{ [    period,      colon                             ] };
++    key <AD04>	{ [         p,          P,        thorn,        THORN ] };
++    key <AD05>	{ [         y,          Y                             ] };
++    key <AD06>  { [         f,          F,      dstroke,  ordfeminine ] };
++    key <AD07>  { [         g,          G,          eng,          ENG ] };
++    key <AD08>  { [         c,          C,         cent,    copyright ] };
++    key <AD09>  { [         t,          T,       tslash,       Tslash ] };
++    key <AD10>  { [         z,          Z                             ] };
++    key <AD11> { [       less,    greater,  bracketleft               ] };
++    key <AD12>	{ [ dead_diaeresis, exclam, bracketright              ] };
++
++    key <AC01>	{ [         a,          A,           ae,           AE ] };
++    key <AC02>	{ [         o,          O,       oslash,     Ooblique ] };
++    key <AC03>	{ [         e,          E,     EuroSign               ] };
++    key <AC04>	{ [         i,          I,   rightarrow,     idotless ] };
++    key <AC05>	{ [         u,          U,    downarrow,      uparrow ] };
++    key <AC06>	{ [         h,          H,      hstroke,      Hstroke ] };
++    key <AC07>	{ [         d,          D,          eth,          ETH ] };
++    key <AC08>	{ [         r,          R,    paragraph,   registered ] };
++    key <AC09>	{ [         n,          N,            n,            N ] };
++    key <AC10>	{ [         s,          S,       ssharp,      section ] };
++    key <AC11>	{ [         l,          L,    braceleft               ] };
++    key <BKSL>	{ [     dollar,   sterling,   braceright              ] };
++
++    key <AB01>  { [ odiaeresis,     eacute                            ] };
++    key <AB02>  { [         q,          Q,           at,  Greek_OMEGA ] };
++    key <AB03>  { [         j,          J,    dead_hook,    dead_horn ] };
++    key <AB04>  { [         k,          K,          kra,    ampersand ] };
++    key <AB05>  { [         x,          X, guillemotright,    greater ] };
++    key <AB06>  { [         b,          B, rightdoublequotemark, rightsinglequotemark ] };
++    key <AB07>  { [         m,          M,           mu,    masculine ] };
++    key <AB08>  { [         w,          W,      lstroke,      Lstroke ] };
++    key <AB09>  { [         v,          V, leftdoublequotemark, leftsinglequotemark ]   };
++    key <AB10>  { [     minus, underscore                            ] };
++
++
++    key <LSGT>  { [ adiaeresis,     agrave,    backslash             ] };
++};
++
++partial alphanumeric_keys 
+ xkb_symbols "fr" {
+ 
+     include "ch(basic)"
