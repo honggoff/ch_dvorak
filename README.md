@@ -8,11 +8,16 @@ This repository contains patches to the xkb configurtion files that define the k
 ```shell
 old_version=15.04
 new_version=16.04
+srcdir=$PWD
 
 cd ubuntu
-mkdir ${new_version}
+mkdir -p ${new_version}/orig
 cd ${new_version}
-cp -r /usr/share/X11/xkb/ orig
+
+cd /usr/share/
+cp -r --parents X11/xkb/ ${srcdir}/ubuntu/${new_version}/orig/
+cp -r --parents ibus/component/simple.xml ${srcdir}/ubuntu/${new_version}/orig/
+cd -
 cp -r orig new
 cd new
 patch --no-backup-if-mismatch -p1 < ../../${old_version}/dvorak.patch
@@ -24,6 +29,6 @@ diff -urN --no-dereference orig/ new/ > dvorak.patch
 ## Apply an existing Patch to your Installation
 
 ```shell
-cd /usr/share/X11/xkb
+cd /usr/share
 sudo patch -p1 < ${srcdir}/ubuntu/${new_version}/dvorak.patch
 ```
