@@ -16,7 +16,6 @@ cd ${new_version}
 
 cd /usr/share/
 cp -r --parents X11/xkb/ ${srcdir}/ubuntu/${new_version}/orig/
-cp -r --parents ibus/component/simple.xml ${srcdir}/ubuntu/${new_version}/orig/
 cd -
 cp -r orig new
 cd new
